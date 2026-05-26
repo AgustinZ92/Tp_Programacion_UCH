@@ -1,0 +1,185 @@
+<div style="min-height: 100vh; background: #f3f4f6; padding: 30px;">
+
+  <div
+    style="
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+    "
+  >
+
+    <h1
+      style="
+        text-align: center;
+        font-size: 35px;
+        margin-bottom: 25px;
+      "
+    >
+      ToDo List
+    </h1>
+
+    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+
+      <input
+        type="text"
+        [(ngModel)]="newTask"
+        placeholder="Escribe una tarea"
+        style="
+          flex: 1;
+          padding: 12px;
+          border-radius: 10px;
+          border: 1px solid gray;
+        "
+      >
+
+      <button
+        (click)="addTask()"
+        style="
+          background: #2563eb;
+          color: white;
+          border: none;
+          padding: 12px 20px;
+          border-radius: 10px;
+          cursor: pointer;
+        "
+      >
+        Agregar
+      </button>
+
+    </div>
+
+    <div
+      style="
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 25px;
+        gap: 10px;
+      "
+    >
+
+      <div
+        style="
+          background: #dbeafe;
+          padding: 15px;
+          border-radius: 10px;
+          flex: 1;
+          text-align: center;
+        "
+      >
+        <h3>Totales</h3>
+        <p>{{ totalTasks }}</p>
+      </div>
+
+      <div
+        style="
+          background: #fef3c7;
+          padding: 15px;
+          border-radius: 10px;
+          flex: 1;
+          text-align: center;
+        "
+      >
+        <h3>Pendientes</h3>
+        <p>{{ pendingTasks }}</p>
+      </div>
+
+      <div
+        style="
+          background: #dcfce7;
+          padding: 15px;
+          border-radius: 10px;
+          flex: 1;
+          text-align: center;
+        "
+      >
+        <h3>Completadas</h3>
+        <p>{{ completedTasks }}</p>
+      </div>
+
+    </div>
+
+    <div *ngIf="tasks.length === 0">
+
+      <p
+        style="
+          text-align: center;
+          color: gray;
+        "
+      >
+        No hay tareas cargadas.
+      </p>
+
+    </div>
+
+    <div *ngFor="let task of tasks">
+
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border: 1px solid #ddd;
+          padding: 15px;
+          border-radius: 10px;
+          margin-bottom: 15px;
+          background: #f9fafb;
+        "
+      >
+
+        <div>
+
+          <h3
+            [style.text-decoration]="task.completed ? 'line-through' : 'none'"
+            [style.color]="task.completed ? 'gray' : 'black'"
+          >
+            {{ task.title }}
+          </h3>
+
+          <small>
+            {{ task.createdAt | date:'dd/MM/yyyy HH:mm' }}
+          </small>
+
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+
+          <button
+            (click)="toggleTask(task)"
+            style="
+              background: green;
+              color: white;
+              border: none;
+              padding: 10px;
+              border-radius: 8px;
+              cursor: pointer;
+            "
+          >
+            {{ task.completed ? 'Deshacer' : 'Completar' }}
+          </button>
+
+          <button
+            (click)="deleteTask(task.id)"
+            style="
+              background: red;
+              color: white;
+              border: none;
+              padding: 10px;
+              border-radius: 8px;
+              cursor: pointer;
+            "
+          >
+            Eliminar
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
